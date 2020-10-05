@@ -1,0 +1,60 @@
+/*Q1)Maximum subarray sum in an array created after repeated concatenation
+/*Q1)Maximum subarray sum in an array created after repeated concatenation
+
+Given an arrayand a number k, find the largest sum of contiguous array in the modified array which is formed by
+repeating the given array k times.
+Input  : arr[] = { -1, 10, 20 }, k = 2
+Output : 59
+After concatenating array twice, we
+get{ -1, 10, 20, -1, 10, 20 } which has
+maximum subarray sum as 59.
+
+Input : arr[] = { -1, -2, -3 }, k = 3
+Output : -1
+Code for above problem in C*/
+
+#include<stdio.h>
+int main()
+{
+	int k =0,t=0,p=0;
+	printf("Enter value of k: ");
+	scanf_s("%d", &k);
+	int arr[10];
+	int arr1[10];
+	int n = 0;
+	printf("Enter the size of an array : ");
+	scanf_s("%d", &n);
+	for (int k = 0; k < n; k++)
+	{
+		scanf_s("%d", &arr1[k]);
+	}
+	int ind = 0;
+	for (int j = 0; j < k; j++)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			arr[ind] = arr1[i];
+			ind++;
+		}
+	}
+	for (int i = 0; i < k*n; i++)
+	{
+		printf("%d\t", arr[i]);
+	}
+	printf("\n");
+	int large = arr[0];
+	for (int i = 0; i < k*n; i++)
+	{
+		int sum = 0;
+		for (int j = i; j < k*n; j++)
+		{
+			sum = sum + arr[j];
+			if (sum > large)
+			{
+				t= i;p = j;
+				large = sum;
+			}
+		}
+	}
+	printf("Maximum subarray sum in an array created after repeated concatenation%d",large);
+}
