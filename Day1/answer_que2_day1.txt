@@ -1,0 +1,50 @@
+/*Q2)Maximum circular subarray sum
+
+Given n numbers(both + ve and -ve), arranged in a circle, find the maximum sum of consecutive numbers.
+Input: a[] = { 8, -8, 9, -9, 10, -11, 12 }
+Output: 22 (12 + 8 - 8 + 9 - 9 + 10)
+
+Input : a[] = { 10, -3, -4, 7, 6, 5, -4, -1 }
+Output:  23 (7 + 6 + 5 - 4 - 1 + 10)
+
+Input : a[] = { -1, 40, -14, 7, 6, 5, -4, -1 }
+Output: 52 (7 + 6 + 5 - 4 - 1 - 1 + 40)*/
+#include <stdio.h> 
+int maxcircularSum(int a[], int n);
+int max_sum(int a[], int n);
+int main()
+{
+    int a[] = { 8, -8, 9, -9, 10, -11, 12 };
+    int n = sizeof(a) / sizeof(a[0]);
+    printf("Maximum circular sum is %d",
+        maxcircularSum(a, n));
+    return 0;
+}
+int maxcircularSum(int a[], int n)
+{
+    int maxsum = max_sum(a, n);
+    int wrap = 0, i;
+    for (i = 0; i < n; i++) {
+        wrap += a[i]; 
+        a[i] = -a[i]; 
+    }
+    wrap = wrap + max_sum(a, n);
+     if (wrap > maxsum) 
+        return wrap;
+    else
+        return maxsum;
+}
+
+int max_sum(int a[], int n)
+{
+    int maxfar = 0, maxend = 0;
+    int i;
+    for (i = 0; i < n; i++) {
+        maxend = maxend + a[i];
+        if (maxend < 0)
+            maxend = 0;
+        if (maxfar < maxend)
+            maxfar = maxend;
+    }
+    return maxfar;
+}
